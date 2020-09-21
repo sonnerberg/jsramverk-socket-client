@@ -5,12 +5,22 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Websocket chat</title>
+        <link rel="stylesheet" href="style.css">
     </head>
 
     <body>
+
         <h1>Websocket chat</h1>
 
-        <script src="dist/bundle.js"></script>
+        <h2>Messages:</h2>
+        <div id="all-messages" class="all-messages"></div>
+
+        <p><strong>Write new message:</strong></p>
+        <input id="new-message" class="new-message" value="" />
+
+
+        <script type="text/javascript" src="dist/bundle.js"></script>
+
     </body>
 
 </html>
