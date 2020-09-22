@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack -d"
+    "start": "webpack -d",
+    "dev": "webpack -d --watch",
+    "deploy": "npm start && rsync -av --exclude 'node_modules' . digitalocean:/var/www/socket-client.sonnerberg.me/html/"
   },
   "keywords": [],
   "author": "",
