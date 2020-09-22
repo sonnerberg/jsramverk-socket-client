@@ -19,6 +19,7 @@ body {
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 2rem;
+  overflow: auto;
 }
 
 .all-messages p:nth-child(2n) {
