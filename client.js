@@ -8,6 +8,9 @@ const socket = io('https://socket-server.sonnerberg.me')
 
 const newMessage = document.getElementById('new-message')
 const allMessages = document.getElementById('all-messages')
+const nickname = document.getElementById('nickname')
+
+const scrollToBottom = () => (allMessages.scrollTop = allMessages.scrollHeight)
 
 socket.on('connect', () => {
   console.info('Connected!')
@@ -21,10 +24,14 @@ socket.on('connect', () => {
 
   newMessage.addEventListener('keyup', (event) => {
     if (event.code === 'Enter') {
-      socket.emit('chat message', event.target.value)
-      event.target.value = ''
+      if (20 >= nickname.value.length && 3 <= nickname.value.length) {
+        socket.emit('chat message', `${nickname.value}: ${event.target.value}`)
+        event.target.value = ''
+      }
     }
   })
+
+  socket.on('chat message', () => scrollToBottom())
 })
 
 socket.on('disconnect', () => console.info('Disconnected!'))
