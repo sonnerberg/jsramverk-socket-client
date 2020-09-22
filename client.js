@@ -1,11 +1,16 @@
 import io from 'socket.io-client'
 
-const socket = io('http://localhost:3000')
+// Use in deployed version
+const socket = io('https://socket-server.sonnerberg.me')
+
+// Use locally
+// const socket = io('http://localhost:8300')
 
 const newMessage = document.getElementById('new-message')
 const allMessages = document.getElementById('all-messages')
 
 socket.on('connect', () => {
+  console.info('Connected!')
   socket.on('chat message', (message) => {
     const addedMessage = document.createElement('p')
 
