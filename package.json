@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack -d",
+    "build": "npm start",
     "dev": "webpack -d --watch",
     "deploy": "npm start && rsync -av --exclude 'node_modules' . digitalocean:/var/www/socket-client.sonnerberg.me/html/"
   },
