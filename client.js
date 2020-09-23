@@ -20,18 +20,17 @@ socket.on('connect', () => {
     addedMessage.textContent = message
 
     allMessages.append(addedMessage)
+    scrollToBottom()
   })
 
   newMessage.addEventListener('keyup', (event) => {
     if (event.code === 'Enter') {
       if (20 >= nickname.value.length && 3 <= nickname.value.length) {
-        socket.emit('chat message', `${nickname.value}: ${event.target.value}`)
+        socket.emit('chat message', nickname.value, event.target.value)
         event.target.value = ''
       }
     }
   })
-
-  socket.on('chat message', () => scrollToBottom())
 })
 
 socket.on('disconnect', () => console.info('Disconnected!'))
