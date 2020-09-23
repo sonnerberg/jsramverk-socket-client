@@ -8,7 +8,8 @@
     "start": "webpack -d",
     "build": "npm start",
     "dev": "webpack -d --watch",
-    "deploy": "npm start && rsync -av --exclude 'node_modules' . digitalocean:/var/www/socket-client.sonnerberg.me/html/"
+    "deploy": "npm start && rsync -av --exclude 'node_modules' . digitalocean:/var/www/socket-client.sonnerberg.me/html/",
+    "deploy:all": "npm run deploy && npm run deploy --prefix ../socket-server"
   },
   "keywords": [],
   "author": "",
