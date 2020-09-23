@@ -9,7 +9,8 @@
     "build": "npm start",
     "dev": "webpack -d --watch",
     "deploy": "npm start && rsync -av --exclude 'node_modules' . digitalocean:/var/www/socket-client.sonnerberg.me/html/",
-    "deploy:all": "npm run deploy && npm run deploy --prefix ../socket-server"
+    "deploy:all": "npm run deploy && npm run deploy --prefix ../socket-server",
+    "push:all": "git push && git -C ../socket-server push"
   },
   "keywords": [],
   "author": "",
