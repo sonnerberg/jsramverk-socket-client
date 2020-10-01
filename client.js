@@ -14,10 +14,10 @@ const scrollToBottom = () => (allMessages.scrollTop = allMessages.scrollHeight)
 
 socket.on('connect', () => {
   console.info('Connected!')
-  socket.on('chat message', (message) => {
+  socket.on('chat message', ({ time, name, message }) => {
     const addedMessage = document.createElement('p')
 
-    addedMessage.textContent = message
+    addedMessage.textContent = `${time} ${name ? name : ''}: ${message}`
 
     allMessages.append(addedMessage)
     scrollToBottom()
@@ -26,7 +26,10 @@ socket.on('connect', () => {
   newMessage.addEventListener('keyup', (event) => {
     if (event.code === 'Enter') {
       if (20 >= nickname.value.length && 3 <= nickname.value.length) {
-        socket.emit('chat message', nickname.value, event.target.value)
+        socket.emit('chat message', {
+          name: nickname.value,
+          message: event.target.value,
+        })
         event.target.value = ''
       }
     }
