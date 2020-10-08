@@ -13,8 +13,6 @@ let nicknameValue
 
 const showMessageInput = () => {
   const inputs = document.getElementById('inputs')
-  // <label for='new-message'><strong>Write new message:</strong></label>
-  // <input id="new-message" class="new-message" value="" />
   const labelMessage = document.createElement('label')
   labelMessage.setAttribute('for', 'new-message')
   labelMessage.textContent = 'Write new message:'
@@ -27,10 +25,13 @@ const showMessageInput = () => {
   newMessage.addEventListener('keyup', (event) => {
     if (event.code === 'Enter') {
       if (20 >= nickname.value.length && 3 <= nickname.value.length) {
+        const name = nickname.value
+        const message = event.target.value
         socket.emit('chat message', {
-          name: nickname.value,
-          message: event.target.value,
+          name,
+          message,
         })
+        addMessage('', name, message)
         event.target.value = ''
       }
     }
@@ -39,9 +40,6 @@ const showMessageInput = () => {
 
 const showNicknameInput = () => {
   const inputs = document.getElementById('inputs')
-  // <label for='nickname'><strong>Nickname:</strong></label>
-  // <input id="nickname" class="new-message" value="" minlength="3"
-  //     maxlength="20" required />
   const labelNickname = document.createElement('label')
   labelNickname.setAttribute('for', 'nickname')
   labelNickname.textContent = 'Nickname:'
@@ -72,13 +70,17 @@ if (!nicknameValue) showNicknameInput()
 
 const scrollToBottom = () => (allMessages.scrollTop = allMessages.scrollHeight)
 
-socket.on('chat message', ({ time, name, message }) => {
+const addMessage = (time, name, message) => {
   const addedMessage = document.createElement('p')
 
   addedMessage.textContent = `${time} ${name ? name : ''}: ${message}`
 
   allMessages.append(addedMessage)
   scrollToBottom()
+}
+
+socket.on('chat message', ({ time, name, message }) => {
+  addMessage(time, name, message)
 })
 
 socket.on('disconnect', () => console.info('Disconnected!'))
